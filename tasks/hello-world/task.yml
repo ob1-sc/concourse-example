@@ -11,5 +11,8 @@ inputs:
   - name: platform-automation-tasks
   - name: platform-automation-image
 
+params:
+  - NAME: simon
+
 run:
   path: source-code/tasks/hello-world/task.sh

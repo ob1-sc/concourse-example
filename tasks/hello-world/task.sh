@@ -1,5 +1,5 @@
 #!/bin/sh
 
-echo "Hello World"
+echo "Hello $NAME"
 
 exit 1
