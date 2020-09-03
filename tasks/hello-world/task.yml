@@ -8,6 +8,8 @@ image_resource:
 
 inputs:
   - name: source-code
+  - name: platform-automation-tasks
+  - name: platform-automation-image
 
 run:
   path: source-code/tasks/hello-world/task.sh
