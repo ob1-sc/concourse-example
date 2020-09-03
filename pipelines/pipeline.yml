@@ -1,0 +1,47 @@
+---
+resources:
+- name: source-code
+  type: git
+  source:
+    uri: https://github.com/ob1-sc/concourse-example.git
+    branch: master
+
+- name: platform-automation-tasks
+  type: s3
+  source:
+    access_key_id: minio
+    secret_access_key: minio123
+    bucket: product-downloads
+    endpoint: http://ducc.homelab.local:9080
+    regexp: .*tasks-(.*).zip
+
+- name: platform-automation-image
+  type: s3
+  source:
+    access_key_id: minio
+    secret_access_key: minio123
+    bucket: product-downloads
+    endpoint: http://ducc.homelab.local:9080
+    regexp: .*image-(.*).tgz
+
+jobs:
+
+- name: hello-world
+  plan:
+  - get: source-code
+  - get: platform-automation-tasks
+  - get: platform-automation-image
+
+  - task: hello-world
+    file: source-code/tasks/hello-world/task.yml
+  # - task: hello-world
+  #   config:
+  #     platform: linux
+  #     image_resource:
+  #       type: registry-image
+  #       source: { repository: busybox }
+  #     inputs:
+  #     - name: source-code
+  #     run:
+  #       path: ls
+  #       args: ["source-code"]
